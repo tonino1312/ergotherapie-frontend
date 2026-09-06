@@ -17,6 +17,7 @@ import { Faq } from "@/components/Faq";
 import { Hero } from "@/components/Hero";
 import { SpecialtiesMarquee } from "@/components/SpecialtiesMarquee";
 import { TiltCard } from "@/components/TiltCard";
+import { MomentsCarousel } from "@/components/MomentsCarousel";
 
 const IDIOMA_LABEL: Record<Servicio["idioma"], string> = {
   ALEMAN: "Alemán",
@@ -70,6 +71,18 @@ export default async function Home() {
     <>
       <Hero />
       <SpecialtiesMarquee />
+
+      {/* CARRUSEL */}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <Reveal>
+          <h2 className="text-2xl font-bold text-primary-dark">¿En qué podemos ayudarte?</h2>
+          <p className="mt-2 text-foreground/70">Algunas de las áreas en las que trabajamos.</p>
+        </Reveal>
+
+        <div className="mt-8">
+          <MomentsCarousel />
+        </div>
+      </section>
 
       {/* SERVICIOS DESTACADOS */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">

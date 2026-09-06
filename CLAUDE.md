@@ -8,7 +8,7 @@ Web para una consulta de terapia ocupacional (inspirada en ergotherapie-kids.de)
 - Next.js 16.3.4 (App Router, Turbopack) — **versión con cambios respecto a lo habitual**: `middleware.ts` se llama ahora `proxy.ts`, el cacheo de `fetch` no es automático (usar la directiva `use cache` cuando aplique). Antes de usar una API de Next.js dudosa, comprobar en `node_modules/next/dist/docs/` (según indica `AGENTS.md`).
 - React 19.2.8 + TypeScript
 - Tailwind CSS
-- framer-motion (animaciones/scroll-reveal), lucide-react (iconos), react-parallax-tilt (tilt 3D en tarjetas), react-fast-marquee (cinta animada)
+- framer-motion (animaciones/scroll-reveal), lucide-react (iconos), react-parallax-tilt (tilt 3D en tarjetas), react-fast-marquee (cinta animada), embla-carousel-react + embla-carousel-autoplay (carrusel de inicio)
 - ESLint (config plana `eslint.config.mjs`)
 
 ## Backend
@@ -35,6 +35,7 @@ Web para una consulta de terapia ocupacional (inspirada en ergotherapie-kids.de)
 
 ## Estructura actual
 - Parte pública: Inicio (hecha) · Servicios, Sobre mí, Contacto, Cursos (pendientes) — consumen endpoints públicos (`GET /api/servicios`, `POST /api/contacto`).
+- Inicio incluye `MomentsCarousel.tsx` ("¿En qué podemos ayudarte?"): carrusel con Embla (loop + autoplay, para en hover), diapositivas con gradiente + patrón de puntos + tarjeta glassmorphism, sin fotos reales (no hay fotos de la consulta todavía) — cuando existan fotos/vídeos reales, sustituir el contenido de `SLIDES` por medios reales en vez de las tarjetas ilustrativas actuales.
 - `/login`: una sola tarjeta compacta (`LoginTabs.tsx`) con pestañas **Equipo**/**Paciente**. Ambas muestran Google + un formulario propio, **directo, sin toggles ni links que ocultan el formulario** (`AdminLoginForm` / `ClienteAuthForm`, esta última con sus propias sub-pestañas Iniciar sesión/Crear cuenta). Todo en un único cuadro para no alargar la pantalla — decisiones explícitas del usuario tras ver versiones anteriores.
 - `/admin` (protegido, solo `ADMIN`/`TERAPEUTA`): shell con cabecera (nombre/rol + cerrar sesión) y accesos a Pacientes/Citas/Servicios/Contacto — **de momento son tarjetas "Próximamente"**, las páginas reales de gestión están pendientes de construir.
 - `/cuenta` (protegido, cualquier sesión válida): placeholder para cuentas `CLIENTE` — sin funcionalidad todavía, base para futuras features públicas.
