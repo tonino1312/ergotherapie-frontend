@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
         <div>
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="" width={28} height={28} className="rounded-full" />
+            <Image src="/logo.png" alt="" width={28} height={28} className="h-7 w-7 rounded-full" />
             <p className="text-lg font-semibold">{siteConfig.name}</p>
           </div>
           <p className="mt-2 text-sm text-white/70">{siteConfig.tagline}</p>
