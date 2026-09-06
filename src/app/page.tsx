@@ -1,69 +1,103 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getServicios, type Servicio } from "@/lib/api";
+import { siteConfig } from "@/lib/site-config";
 
-export default function Home() {
+const IDIOMA_LABEL: Record<Servicio["idioma"], string> = {
+  ALEMAN: "Alemán",
+  ESPANOL: "Español",
+  INGLES: "Inglés",
+};
+
+async function loadServiciosDestacados(): Promise<Servicio[] | null> {
+  try {
+    const servicios = await getServicios();
+    return servicios.slice(0, 3);
+  } catch {
+    return null;
+  }
+}
+
+export default async function Home() {
+  const servicios = await loadServiciosDestacados();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <section className="bg-primary/5">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-20 sm:px-6 sm:py-28">
+          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-primary-dark sm:text-5xl">
+            {siteConfig.tagline}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="max-w-xl text-lg text-foreground/80">
+            {siteConfig.description}
           </p>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/contacto"
+              className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+            >
+              Pide información
+            </Link>
+            <Link
+              href="/servicios"
+              className="rounded-full border border-primary/30 px-6 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10"
+            >
+              Ver servicios
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <h2 className="text-2xl font-bold text-primary-dark">Servicios destacados</h2>
+
+        {servicios === null && (
+          <p className="mt-4 text-sm text-foreground/60">
+            No se han podido cargar los servicios en este momento.
+          </p>
+        )}
+
+        {servicios !== null && servicios.length === 0 && (
+          <p className="mt-4 text-sm text-foreground/60">
+            Próximamente publicaremos aquí nuestros servicios.
+          </p>
+        )}
+
+        {servicios !== null && servicios.length > 0 && (
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {servicios.map((servicio) => (
+              <article
+                key={servicio.id}
+                className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wide text-accent">
+                  {IDIOMA_LABEL[servicio.idioma]} · {servicio.duracionMinutos} min
+                </p>
+                <h3 className="mt-2 text-lg font-semibold text-foreground">
+                  {servicio.nombre}
+                </h3>
+                {servicio.descripcion && (
+                  <p className="mt-2 text-sm text-foreground/70">{servicio.descripcion}</p>
+                )}
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="bg-primary-dark">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-16 sm:px-6">
+          <h2 className="text-2xl font-bold text-white">¿Hablamos?</h2>
+          <p className="max-w-xl text-white/80">
+            Cuéntanos qué necesitas y te responderemos lo antes posible.
+          </p>
+          <Link
+            href="/contacto"
+            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-white/90"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Ir al formulario de contacto
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
