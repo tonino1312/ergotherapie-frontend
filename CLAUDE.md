@@ -32,7 +32,7 @@ Web para una consulta de terapia ocupacional (inspirada en ergotherapie-kids.de)
 
 ## Estructura actual
 - Parte pública: Inicio (hecha) · Servicios, Sobre mí, Contacto, Cursos (pendientes) — consumen endpoints públicos (`GET /api/servicios`, `POST /api/contacto`).
-- `/login`: dos secciones claramente separadas en la misma página — "Acceso al equipo" (Google + email/contraseña, `GoogleSignInButton` + `AdminLoginForm`) y "¿Eres nuevo por aquí?" (`ClienteAuthForm`, con pestañas Iniciar sesión/Crear cuenta) para visitantes.
+- `/login`: una sola tarjeta compacta (`LoginTabs.tsx`) con pestañas **Equipo**/**Visitante**. "Equipo" muestra Google + `AdminLoginForm`; "Visitante" muestra `ClienteAuthForm` (que a su vez tiene sus propias sub-pestañas Iniciar sesión/Crear cuenta). Todo en un único cuadro para no alargar la pantalla — decisión explícita del usuario tras ver la versión con dos tarjetas apiladas.
 - `/admin` (protegido, solo `ADMIN`/`TERAPEUTA`): shell con cabecera (nombre/rol + cerrar sesión) y accesos a Pacientes/Citas/Servicios/Contacto — **de momento son tarjetas "Próximamente"**, las páginas reales de gestión están pendientes de construir.
 - `/cuenta` (protegido, cualquier sesión válida): placeholder para cuentas `CLIENTE` — sin funcionalidad todavía, base para futuras features públicas.
 
