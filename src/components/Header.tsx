@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 
@@ -14,17 +15,26 @@ export function Header() {
           {siteConfig.name}
         </Link>
 
-        <nav className="hidden gap-8 sm:flex">
-          {siteConfig.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="hidden items-center gap-8 sm:flex">
+          <nav className="flex gap-8">
+            {siteConfig.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 px-4 py-1.5 text-sm font-medium text-primary-dark transition-colors hover:bg-primary/5"
+          >
+            <LogIn size={15} />
+            Acceso equipo
+          </Link>
+        </div>
 
         <button
           type="button"
@@ -55,6 +65,14 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/login"
+            onClick={() => setOpen(false)}
+            className="mt-1 flex items-center gap-1.5 rounded-md border border-primary/20 px-3 py-2 text-sm font-medium text-primary-dark hover:bg-primary/5"
+          >
+            <LogIn size={15} />
+            Acceso equipo
+          </Link>
         </nav>
       )}
     </header>
