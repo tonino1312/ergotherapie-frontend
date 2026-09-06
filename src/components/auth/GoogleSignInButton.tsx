@@ -22,7 +22,13 @@ declare global {
   }
 }
 
-export function GoogleSignInButton() {
+export function GoogleSignInButton({
+  endpoint = "/api/auth/google",
+  defaultRedirect = "/admin",
+}: {
+  endpoint?: string;
+  defaultRedirect?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -35,7 +41,7 @@ export function GoogleSignInButton() {
       setError(null);
 
       try {
-        const res = await fetch("/api/auth/google", {
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ idToken: response.credential }),
@@ -48,14 +54,14 @@ export function GoogleSignInButton() {
           return;
         }
 
-        router.push(searchParams.get("next") ?? "/admin");
+        router.push(searchParams.get("next") ?? defaultRedirect);
         router.refresh();
       } catch {
         setError("No se pudo conectar con el servidor.");
         setLoading(false);
       }
     },
-    [router, searchParams]
+    [router, searchParams, endpoint, defaultRedirect]
   );
 
   const handleScriptLoad = useCallback(() => {

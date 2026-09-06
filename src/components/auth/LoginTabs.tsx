@@ -39,7 +39,7 @@ export function LoginTabs() {
       <Suspense fallback={null}>
         {tab === "equipo" ? (
           <div className="flex flex-col items-center gap-6">
-            <GoogleSignInButton />
+            <GoogleSignInButton endpoint="/api/auth/google" defaultRedirect="/admin" />
 
             <div className="flex w-full items-center gap-3">
               <div className="h-px flex-1 bg-black/10" />
@@ -50,7 +50,15 @@ export function LoginTabs() {
             <AdminLoginForm />
           </div>
         ) : (
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center gap-6">
+            <GoogleSignInButton endpoint="/api/clientes/google" defaultRedirect="/cuenta" />
+
+            <div className="flex w-full items-center gap-3">
+              <div className="h-px flex-1 bg-black/10" />
+              <span className="text-xs text-foreground/40">o</span>
+              <div className="h-px flex-1 bg-black/10" />
+            </div>
+
             <ClienteAuthForm />
           </div>
         )}
