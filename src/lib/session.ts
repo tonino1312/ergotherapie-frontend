@@ -3,11 +3,15 @@ import { cookies } from "next/headers";
 export const SESSION_COOKIE = "session";
 const ONE_DAY_SECONDS = 60 * 60 * 24;
 
+export type Rol = "ADMIN" | "TERAPEUTA" | "CLIENTE";
+
 export type Session = {
   email: string;
   nombre: string;
-  rol: "ADMIN" | "TERAPEUTA";
+  rol: Rol;
 };
+
+export const ROLES_EQUIPO: Rol[] = ["ADMIN", "TERAPEUTA"];
 
 export async function setSessionCookie(token: string) {
   const store = await cookies();

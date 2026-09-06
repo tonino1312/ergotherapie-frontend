@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/session";
+import { getSession, ROLES_EQUIPO } from "@/lib/session";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { siteConfig } from "@/lib/site-config";
 
@@ -9,6 +9,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   if (!session) {
     redirect("/login");
+  }
+
+  if (!ROLES_EQUIPO.includes(session.rol)) {
+    redirect("/cuenta");
   }
 
   return (
