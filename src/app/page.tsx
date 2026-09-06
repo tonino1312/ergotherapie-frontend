@@ -12,21 +12,17 @@ import {
   Users,
 } from "lucide-react";
 import { getServicios, type Servicio } from "@/lib/api";
-import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
+import { Hero } from "@/components/Hero";
+import { SpecialtiesMarquee } from "@/components/SpecialtiesMarquee";
+import { TiltCard } from "@/components/TiltCard";
 
 const IDIOMA_LABEL: Record<Servicio["idioma"], string> = {
   ALEMAN: "Alemán",
   ESPANOL: "Español",
   INGLES: "Inglés",
 };
-
-const TRUST_BADGES = [
-  { icon: Users, label: "Trato cercano y personalizado" },
-  { icon: Languages, label: "Español · Alemán · Inglés" },
-  { icon: Sparkles, label: "Planes adaptados a cada persona" },
-];
 
 const PROCESO = [
   {
@@ -72,58 +68,8 @@ export default async function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-primary/5">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary-light/30 blur-3xl"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-accent/20 blur-3xl"
-        />
-
-        <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-20 sm:px-6 sm:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-primary-dark shadow-sm ring-1 ring-primary/10">
-            <Sparkles size={14} className="text-accent" />
-            Consulta de terapia ocupacional
-          </span>
-
-          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-primary-dark sm:text-5xl">
-            Recupera tu autonomía,{" "}
-            <span className="text-accent">a tu ritmo</span>
-          </h1>
-
-          <p className="max-w-xl text-lg text-foreground/80">
-            {siteConfig.description}
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/contacto"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30"
-            >
-              Pide información
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/servicios"
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-semibold text-primary-dark transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-            >
-              Ver servicios
-            </Link>
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
-            {TRUST_BADGES.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 text-sm text-foreground/70">
-                <Icon size={16} className="text-primary" />
-                {label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Hero />
+      <SpecialtiesMarquee />
 
       {/* SERVICIOS DESTACADOS */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -148,20 +94,22 @@ export default async function Home() {
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {servicios.map((servicio, i) => (
               <Reveal key={servicio.id} delay={i * 0.08}>
-                <article className="group h-full rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                    <Sparkles size={18} />
-                  </div>
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-accent">
-                    {IDIOMA_LABEL[servicio.idioma]} · {servicio.duracionMinutos} min
-                  </p>
-                  <h3 className="mt-1 text-lg font-semibold text-foreground">
-                    {servicio.nombre}
-                  </h3>
-                  {servicio.descripcion && (
-                    <p className="mt-2 text-sm text-foreground/70">{servicio.descripcion}</p>
-                  )}
-                </article>
+                <TiltCard className="h-full">
+                  <article className="group h-full rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg hover:shadow-primary/10">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Sparkles size={18} />
+                    </div>
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-accent">
+                      {IDIOMA_LABEL[servicio.idioma]} · {servicio.duracionMinutos} min
+                    </p>
+                    <h3 className="mt-1 text-lg font-semibold text-foreground">
+                      {servicio.nombre}
+                    </h3>
+                    {servicio.descripcion && (
+                      <p className="mt-2 text-sm text-foreground/70">{servicio.descripcion}</p>
+                    )}
+                  </article>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
@@ -204,15 +152,17 @@ export default async function Home() {
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {RAZONES.map((razon, i) => (
             <Reveal key={razon.title} delay={i * 0.06}>
-              <div className="flex gap-4 rounded-2xl border border-black/5 bg-white p-6 transition-shadow hover:shadow-md">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                  <razon.icon size={20} />
+              <TiltCard>
+                <div className="flex h-full gap-4 rounded-2xl border border-black/5 bg-white p-6 transition-shadow hover:shadow-md">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <razon.icon size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">{razon.title}</h3>
+                    <p className="mt-1 text-sm text-foreground/70">{razon.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{razon.title}</h3>
-                  <p className="mt-1 text-sm text-foreground/70">{razon.text}</p>
-                </div>
-              </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
