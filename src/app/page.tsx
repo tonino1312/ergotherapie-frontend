@@ -11,7 +11,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { getServicios, type Servicio } from "@/lib/api";
+import { getImagenes, getServicios, type Imagen, type Servicio } from "@/lib/api";
 import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
 import { Hero } from "@/components/Hero";
@@ -64,8 +64,19 @@ async function loadServiciosDestacados(): Promise<Servicio[] | null> {
   }
 }
 
+async function loadFotosCarrusel(): Promise<Imagen[]> {
+  try {
+    return await getImagenes("CARRUSEL_INICIO");
+  } catch {
+    return [];
+  }
+}
+
 export default async function Home() {
-  const servicios = await loadServiciosDestacados();
+  const [servicios, fotosCarrusel] = await Promise.all([
+    loadServiciosDestacados(),
+    loadFotosCarrusel(),
+  ]);
 
   return (
     <>
@@ -80,7 +91,7 @@ export default async function Home() {
         </Reveal>
 
         <div className="mt-8">
-          <MomentsCarousel />
+          <MomentsCarousel fotos={fotosCarrusel} />
         </div>
       </section>
 
