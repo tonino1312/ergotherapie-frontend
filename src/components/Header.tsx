@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
@@ -11,7 +12,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-lg font-semibold text-primary-dark">
+        <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-primary-dark">
+          <Image src="/logo.png" alt="" width={32} height={32} className="rounded-full" priority />
           {siteConfig.name}
         </Link>
 

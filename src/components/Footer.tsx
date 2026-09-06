@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
@@ -6,7 +7,10 @@ export function Footer() {
     <footer className="border-t border-black/5 bg-primary-dark text-white">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
         <div>
-          <p className="text-lg font-semibold">{siteConfig.name}</p>
+          <div className="flex items-center gap-2">
+            <Image src="/logo.png" alt="" width={28} height={28} className="rounded-full" />
+            <p className="text-lg font-semibold">{siteConfig.name}</p>
+          </div>
           <p className="mt-2 text-sm text-white/70">{siteConfig.tagline}</p>
         </div>
 

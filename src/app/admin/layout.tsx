@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { getSession, ROLES_EQUIPO } from "@/lib/session";
 import { LogoutButton } from "@/components/auth/LogoutButton";
@@ -19,7 +20,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="min-h-[calc(100vh-4rem)] bg-primary/5">
       <header className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/admin" className="font-semibold text-primary-dark">
+          <Link href="/admin" className="flex items-center gap-2 font-semibold text-primary-dark">
+            <Image src="/logo.png" alt="" width={28} height={28} className="rounded-full" />
             {siteConfig.name} · Panel
           </Link>
 
