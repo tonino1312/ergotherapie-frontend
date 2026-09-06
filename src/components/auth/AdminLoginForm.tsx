@@ -2,12 +2,11 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { Loader2, Lock } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [expanded, setExpanded] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -38,19 +37,6 @@ export function AdminLoginForm() {
       setError("No se pudo conectar con el servidor.");
       setLoading(false);
     }
-  }
-
-  if (!expanded) {
-    return (
-      <button
-        type="button"
-        onClick={() => setExpanded(true)}
-        className="inline-flex items-center gap-2 text-sm font-medium text-foreground/60 underline-offset-4 hover:text-primary hover:underline"
-      >
-        <Lock size={14} />
-        Acceder como administrador con email y contraseña
-      </button>
-    );
   }
 
   return (

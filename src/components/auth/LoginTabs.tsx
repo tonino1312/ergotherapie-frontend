@@ -32,7 +32,7 @@ export function LoginTabs() {
           }`}
         >
           <User size={15} />
-          Visitante
+          Paciente
         </button>
       </div>
 

@@ -28,7 +28,7 @@ export default function LoginPage() {
             </span>
             <h1 className="mt-2 text-2xl font-bold text-primary-dark">Inicia sesión</h1>
             <p className="text-sm text-foreground/70">
-              Accede como equipo o como visitante.
+              Accede como equipo o como paciente.
             </p>
           </div>
 
