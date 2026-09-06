@@ -4,10 +4,9 @@ export const siteConfig = {
   description:
     "Consulta de terapia ocupacional centrada en la persona: evaluación, tratamiento y acompañamiento para el día a día.",
   contact: {
-    // TODO: sustituir por los datos reales del negocio
-    email: "info@ergoterapia.example",
-    phone: "+34 600 000 000",
-    whatsapp: "https://wa.me/34600000000",
+    email: "info@ergotherapie-kids.de",
+    phone: "+49 (0) 1625203634",
+    whatsapp: "https://wa.me/491625203634",
   },
   nav: [
     { href: "/", label: "Inicio" },
