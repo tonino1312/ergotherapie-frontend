@@ -30,7 +30,7 @@ export function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative overflow-hidden bg-primary/5"
+      className="relative overflow-hidden"
     >
       <motion.div
         aria-hidden
